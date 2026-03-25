@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Super Health</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="phone-frame">
+    <div class="phone-screen" id="phoneScreen">
+        <div class="status-bar">
+            <span class="time" id="liveTime">--:--</span>
+            <span class="status-icons"><i class="fas fa-signal"></i> <i class="fas fa-battery-full"></i></span>
+        </div>
+        <div class="app-content" id="appContent">
+            <!-- ГЛАВНАЯ -->
+            <div id="mainScreen" class="screen">
+                <div class="speedometer-card">
+                    <div class="speedometer-header">
+                        <span class="speedometer-title"><i class="fas fa-shoe-prints"></i> <span class="translate" data-key="step_counter">Шагомер</span></span>
+                        <span class="speedometer-value" id="stepsDisplay">0</span>
+                    </div>
+                    <div class="gauge-container">
+                        <div class="gauge-bg"></div>
+                        <div class="gauge-fill" id="stepsGaugeFill"></div>
+                        <div class="gauge-center">
+                            <span class="gauge-steps" id="gaugeSteps">0</span>
+                            <span class="gauge-label translate" data-key="steps">шагов</span>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="btn" id="addStepsBtn"><i class="fas fa-plus"></i> <span class="translate" data-key="add">Добавить</span></button>
+                        <button class="btn" id="resetStepsBtn"><i class="fas fa-sync-alt"></i> <span class="translate" data-key="reset">Сброс</span></button>
+                    </div>
+                </div>
+                
+                <div class="metric-row">
+                    <div class="metric-block">
+                        <div class="metric-label"><i class="fas fa-road"></i> <span class="translate" data-key="distance">Расстояние</span></div>
+                        <div><span class="metric-number" id="distanceDisplay">0.00</span><span class="translate" id="distanceUnitLabel" data-key="km_short">км</span></div>
+                    </div>
+                    <div class="metric-block">
+                        <div class="metric-label"><i class="fas fa-fire"></i> <span class="translate" data-key="calories">Калории</span></div>
+                        <div><span class="metric-number" id="caloriesDisplay">0</span><span class="translate" data-key="kcal_short">ккал</span></div>
+                    </div>
+                    <div class="metric-block">
+                        <div class="metric-label"><i class="fas fa-clock"></i> <span class="translate" data-key="minutes">Минуты</span></div>
+                        <div><span class="metric-number" id="minutesDisplay">0</span><span> <span class="translate" data-key="min">мин</span></span></div>
+                    </div>
+                </div>
+                
+                <div class="speedometer-card">
+                    <div class="speedometer-header">
+                        <span class="speedometer-title"><i class="fas fa-utensils"></i> <span class="translate" data-key="nutrition">Питание</span></span>
+                        <span class="speedometer-value" id="totalCalories">0</span>
+                    </div>
+                    <div class="gauge-container">
+                        <div class="gauge-bg"></div>
+                        <div class="gauge-fill" id="caloriesGaugeFill"></div>
+                        <div class="gauge-center">
+                            <span class="gauge-steps" id="gaugeCalories">0</span>
+                            <span class="gauge-label translate" data-key="kcal_short">ккал</span>
+                        </div>
+                    </div>
+                    <div class="food-input-row">
+                        <input type="text" id="foodNameInput" class="food-input" placeholder="Блюдо">
+                        <input type="number" id="foodCaloriesInput" class="food-input" placeholder="ккал">
+                        <input type="file" id="foodPhotoInput" accept="image/*" style="display:none">
+                        <button class="photo-input-btn" id="addPhotoBtn"><i class="fas fa-camera"></i></button>
+                    </div>
+                    <div class="button-row">
+                        <button class="btn btn-primary" id="addFoodBtn"><i class="fas fa-plus"></i> <span class="translate" data-key="add">Добавить</span></button>
+                        <button class="btn" id="resetFoodBtn"><i class="fas fa-trash-alt"></i> <span class="translate" data-key="reset">Сброс</span></button>
+                    </div>
+                    <div class="food-list" id="foodList"></div>
+                </div>
+                
+                <div class="speedometer-card">
+                    <div class="speedometer-header">
+                        <span class="speedometer-title"><i class="fas fa-moon"></i> <span class="translate" data-key="sleep">Сон</span></span>
+                        <span class="speedometer-value" id="sleepDurationDisplay">0</span>
+                    </div>
+                    <div class="gauge-container">
+                        <div class="gauge-bg"></div>
+                        <div class="gauge-fill" id="sleepGaugeFill"></div>
+                        <div class="gauge-center">
+                            <span class="gauge-steps" id="gaugeSleep">0</span>
+                            <span class="gauge-label translate" data-key="hours">часов</span>
+                        </div>
+                    </div>
+                    <div class="sleep-time-row">
+                        <div class="sleep-time-card">
+                            <button class="btn" id="bedTimeBtn" style="padding:8px"><i class="fas fa-bed"></i> <span class="translate" data-key="bed_time">Лёг спать</span></button>
+                            <div id="bedTimeDisplay" style="font-size:11px">--:--</div>
+                        </div>
+                        <div class="sleep-time-card">
+                            <button class="btn" id="wakeTimeBtn" style="padding:8px"><i class="fas fa-sun"></i> <span class="translate" data-key="wake_time">Проснулся</span></button>
+                            <div id="wakeTimeDisplay" style="font-size:11px">--:--</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="food-section">
+                    <div class="speedometer-header">
+                        <span><i class="fas fa-chart-line"></i> <span class="translate" data-key="weekly_energy">Расход энергии за 7 дней</span></span>
+                        <span id="weekTotal">0</span>
+                    </div>
+                    <div class="chart-row" id="energyChart"></div>
+                    <div class="days-row" id="energyDays"></div>
+                </div>
+            </div>
+            
+            <!-- ЖУРНАЛ -->
+            <div id="journalScreen" class="screen hidden">
+                <h3><i class="fas fa-book-open"></i> <span class="translate" data-key="journal">Журнал</span></h3>
+                <div id="journalContent"></div>
+                <div class="week-stats" id="weekStats"></div>
+            </div>
+            
+            <!-- ОБЗОР -->
+            <div id="overviewScreen" class="screen hidden">
+                <h3><i class="fas fa-chart-simple"></i> <span class="translate" data-key="overview">Обзор данных</span></h3>
+                <div class="overview-vertical">
+                    <div class="overview-vertical-card" id="activityTile">
+                        <div class="overview-vertical-icon"><i class="fas fa-person-running"></i></div>
+                        <div class="overview-vertical-info">
+                            <div class="overview-vertical-title translate" data-key="activity">Активность</div>
+                            <div class="overview-vertical-sub translate" data-key="activity_sub">шаги, расстояние</div>
+                        </div>
+                        <div class="overview-vertical-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="overview-vertical-card" id="nutritionOverviewTile">
+                        <div class="overview-vertical-icon"><i class="fas fa-apple-alt"></i></div>
+                        <div class="overview-vertical-info">
+                            <div class="overview-vertical-title translate" data-key="nutrition">Питание</div>
+                            <div class="overview-vertical-sub translate" data-key="nutrition_sub">калории</div>
+                        </div>
+                        <div class="overview-vertical-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                    <div class="overview-vertical-card" id="sleepOverviewTile">
+                        <div class="overview-vertical-icon"><i class="fas fa-bed"></i></div>
+                        <div class="overview-vertical-info">
+                            <div class="overview-vertical-title translate" data-key="sleep">Сон</div>
+                            <div class="overview-vertical-sub translate" data-key="sleep_sub">качество</div>
+                        </div>
+                        <div class="overview-vertical-arrow"><i class="fas fa-chevron-right"></i></div>
+                    </div>
+                </div>
+                <div class="tip-card" id="overviewRecommendations"></div>
+            </div>
+            
+            <!-- ДЕТАЛИ -->
+            <div id="activityDetailScreen" class="screen hidden">
+                <div class="back-button" id="backFromActivity"><i class="fas fa-arrow-left"></i> <span class="translate" data-key="back">Назад</span></div>
+                <h3><i class="fas fa-person-running"></i> <span class="translate" data-key="activity">Активность</span></h3>
+                <div class="food-section">
+                    <div class="chart-row" id="activityStepsChart"></div>
+                    <div class="days-row" id="activityStepsDays"></div>
+                </div>
+            </div>
+            
+            <div id="nutritionDetailScreen" class="screen hidden">
+                <div class="back-button" id="backFromNutrition"><i class="fas fa-arrow-left"></i> <span class="translate" data-key="back">Назад</span></div>
+                <h3><i class="fas fa-apple-alt"></i> <span class="translate" data-key="nutrition">Питание</span></h3>
+                <div class="food-section">
+                    <div class="chart-row" id="nutritionChart"></div>
+                    <div class="days-row" id="nutritionDays"></div>
+                    <div class="food-detail-card" id="foodDetailCard">
+                        <div class="food-detail-title">
+                            <i class="fas fa-utensils"></i> <span id="foodDetailDate"></span>
+                            <span class="close-food-detail" id="closeFoodDetail"><i class="fas fa-times"></i></span>
+                        </div>
+                        <div id="foodDetailList" class="food-detail-list-large"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="sleepDetailScreen" class="screen hidden">
+                <div class="back-button" id="backFromSleep"><i class="fas fa-arrow-left"></i> <span class="translate" data-key="back">Назад</span></div>
+                <h3><i class="fas fa-moon"></i> <span class="translate" data-key="sleep">Сон</span></h3>
+                <div class="food-section">
+                    <div style="text-align:center">
+                        <span style="font-size:40px;font-weight:800" id="sleepHours">0</span>
+                        <span class="translate" data-key="hours"> часов</span>
+                    </div>
+                    <div id="sleepMessage"></div>
+                    <div class="chart-row" id="sleepChart"></div>
+                    <div class="days-row" id="sleepDays"></div>
+                </div>
+            </div>
+            
+            <!-- ПРОФИЛЬ -->
+            <div id="profileScreen" class="screen hidden">
+                <h3><i class="fas fa-user-circle"></i> <span class="translate" data-key="profile">Профиль</span></h3>
+                <div class="profile-header">
+                    <div class="avatar" id="profileAvatar"><i class="fas fa-user"></i></div>
+                    <div class="profile-info">
+                        <h2 id="profileName">Пользователь</h2>
+                        <p id="profileEmail">user@tracker.com</p>
+                        <input type="file" id="avatarInput" style="display:none" accept="image/*">
+                        <button class="upload-avatar-btn" id="uploadAvatarBtn"><i class="fas fa-camera"></i> <span class="translate" data-key="upload_photo">Загрузить фото</span></button>
+                    </div>
+                </div>
+                <div class="profile-row">
+                    <span><i class="fas fa-weight-scale"></i> <span class="translate" data-key="current_weight">Текущий вес</span> (кг)</span>
+                    <span><span id="profileWeight">--</span> <button class="edit-btn" id="editWeightBtn"><i class="fas fa-pen"></i></button></span>
+                </div>
+                <div class="profile-row">
+                    <span><i class="fas fa-ruler"></i> <span class="translate" data-key="height">Рост</span> (см)</span>
+                    <span><span id="profileHeight">--</span> <button class="edit-btn" id="editHeightBtn"><i class="fas fa-pen"></i></button></span>
+                </div>
+                <div class="profile-row">
+                    <span><i class="fas fa-venus-mars"></i> <span class="translate" data-key="gender">Пол</span></span>
+                    <span>
+                        <div class="gender-select-btns" id="genderSelectBtns">
+                            <button class="gender-select-btn" data-gender="male">Мужской</button>
+                            <button class="gender-select-btn" data-gender="female">Женский</button>
+                        </div>
+                    </span>
+                </div>
+                <div class="profile-row">
+                    <span><i class="fas fa-shoe-prints"></i> <span class="translate" data-key="step_goal">Цель шагов</span></span>
+                    <span id="profileStepGoal">10000</span>
+                </div>
+                <div class="profile-row">
+                    <span><i class="fas fa-fire"></i> <span class="translate" data-key="calorie_goal">Цель калорий</span></span>
+                    <span id="profileCalorieGoal">2000</span>
+                </div>
+                <div class="profile-row">
+                    <span><i class="fas fa-moon"></i> <span class="translate" data-key="sleep_goal">Цель сна</span></span>
+                    <span id="profileSleepGoal">8 <span class="translate" data-key="hour_short">ч</span></span>
+                </div>
+                <div class="profile-row">
+                    <span><i class="fas fa-chart-line"></i> <span class="translate" data-key="bmi">ИМТ</span></span>
+                    <span id="profileBMI">--</span>
+                </div>
+                <div class="weight-history" id="weightHistory">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-weight: 600;"><i class="fas fa-chart-line"></i> <span class="translate" data-key="weight_history">История веса</span></span>
+                        <button class="add-weight-btn" id="addWeightRecordBtn"><i class="fas fa-plus"></i> <span class="translate" data-key="record_weight">Записать вес</span></button>
+                    </div>
+                    <div id="weightHistoryList"></div>
+                    <div id="weightChangeSummary" style="margin-top: 12px; padding: 10px; background: #f1f5f9; border-radius: 16px; text-align: center;"></div>
+                </div>
+            </div>
+            
+            <!-- НАСТРОЙКИ -->
+            <div id="settingsScreen" class="screen hidden">
+                <h3><i class="fas fa-gear"></i> <span class="translate" data-key="settings">Настройки</span></h3>
+                <div class="settings-item">
+                    <span><i class="fas fa-shoe-prints"></i> <span class="translate" data-key="step_goal_setting">Цель шагов</span></span>
+                    <input type="number" id="settingStepGoal" style="width:100px; padding:8px; border-radius:20px" value="10000">
+                </div>
+                <div class="settings-item">
+                    <span><i class="fas fa-fire"></i> <span class="translate" data-key="calorie_goal_setting">Цель калорий</span></span>
+                    <input type="number" id="settingCalGoal" style="width:100px; padding:8px; border-radius:20px" value="2000">
+                </div>
+                <div class="settings-item">
+                    <span><i class="fas fa-moon"></i> <span class="translate" data-key="sleep_goal_setting">Цель сна (ч)</span></span>
+                    <input type="number" id="settingSleepGoal" step="0.5" style="width:100px; padding:8px; border-radius:20px" value="8">
+                </div>
+                <div class="settings-item">
+                    <span><i class="fas fa-language"></i> <span class="translate" data-key="language">Язык</span></span>
+                    <select id="languageSelect" class="settings-select">
+                        <option value="ru">Русский</option>
+                        <option value="en">English</option>
+                        <option value="kz">Қазақша</option>
+                    </select>
+                </div>
+                <div class="settings-item">
+                    <span><i class="fas fa-chart-line"></i> <span class="translate" data-key="units">Единицы</span></span>
+                    <select id="unitsSelect" class="settings-select">
+                        <option value="metric">Метрические</option>
+                        <option value="imperial">Имперские</option>
+                    </select>
+                </div>
+                <div class="settings-item">
+                    <span><i class="fas fa-road"></i> <span class="translate" data-key="distance_unit">Расстояние</span></span>
+                    <select id="distanceUnitSelect" class="settings-select">
+                        <option value="km">Километры</option>
+                        <option value="mi">Мили</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" id="saveSettingsBtn" style="width:100%; margin-top:16px"><i class="fas fa-save"></i> <span class="translate" data-key="save">Сохранить</span></button>
+                <button class="btn btn-danger" id="logoutBtn" style="width:100%; margin-top:12px"><i class="fas fa-sign-out-alt"></i> <span class="translate" data-key="logout">Выйти</span></button>
+            </div>
+        </div>
+        
+        <div class="bottom-nav">
+            <div class="nav-item active" data-screen="main"><i class="fas fa-home"></i><span class="translate" data-key="main">Главная</span></div>
+            <div class="nav-item" data-screen="journal"><i class="fas fa-book-open"></i><span class="translate" data-key="journal">Журнал</span></div>
+            <div class="nav-item" data-screen="overview"><i class="fas fa-chart-simple"></i><span class="translate" data-key="overview">Обзор</span></div>
+            <div class="nav-item" data-screen="profile"><i class="fas fa-user"></i><span class="translate" data-key="profile">Профиль</span></div>
+            <div class="nav-item" data-screen="settings"><i class="fas fa-gear"></i><span class="translate" data-key="settings">Настройки</span></div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
